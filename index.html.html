@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin Ndirangu Njoroge - Professional Portfolio</title>
+    <style>
+        :root {
+            --bg-dark: #050811;
+            --bg-gradient: linear-gradient(135deg, #050811, #0d1527);
+            --card-bg: rgba(20, 27, 45, 0.75);
+            --card-border: rgba(0, 210, 255, 0.2);
+            --text-main: #f5f7fa;
+            --text-muted: #a0aec0;
+            --accent-cyan: #00f2fe;
+            --accent-blue: #0072ff;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            padding: 20px 15px 0 15px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 20px 0 20px;
+            }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* Hero / Welcome Layout */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        @media (min-width: 768px) {
+            .hero-section {
+                grid-template-columns: 200px 1fr;
+                gap: 40px;
+                padding: 40px;
+                border-radius: 24px;
+                margin-bottom: 30px;
+            }
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .profile-wrapper {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        .profile-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                        linear-gradient(135deg, var(--accent-blue), var(--accent-cyan)) border-box;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+        }
+
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        .hero-welcome {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-welcome {
+                text-align: left;
+            }
+        }
+
+        .hero-welcome h2 {
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            border: none;
+            padding: 0;
+        }
+
+        .hero-welcome h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffffff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .hero-welcome h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .hero-welcome p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        /* Collapsible Section Shell */
+        .collapsible-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        /* Collapsible Header Button */
+        .section-header {
+            width: 100%;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            color: var(--accent-cyan);
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            outline: none;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .section-header:hover {
+            background: rgba(0, 242, 254, 0.08);
+        }
+
+        .toggle-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            color: var(--accent-cyan);
+        }
+
+        .collapsible-section.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Collapsible Body Content */
+        .section-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            padding: 0 22px;
+        }
+
+        .collapsible-section.open .section-body {
+            max-height: 3000px;
+            transition: max-height 0.5s ease-in-out;
+            padding: 20px 22px 25px 22px;
+        }
+
+        /* Carousel Slider */
+        .marketing-slider {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        @media (min-width: 768px) {
+            .marketing-slider {
+                height: 420px;
+            }
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-overlay {
+            background: linear-gradient(transparent, rgba(5, 8, 17, 0.95));
+            width: 100%;
+            padding: 30px 20px 20px 20px;
+        }
+
+        .slide-overlay h3 {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+        }
+
+        @media (min-width: 768px) {
+            .slide-overlay h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .slide-overlay p {
+            color: var(--text-main);
+            font-size: 0.88rem;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        /* Gallery Grid Layout */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .gallery-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.15);
+        }
+
+        .gallery-img-container {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .gallery-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .gallery-card:hover .gallery-img-container img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            padding: 15px;
+        }
+
+        .gallery-caption h3 {
+            font-size: 1.05rem;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .gallery-caption p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Two Column Layout Split */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 850px) {
+            .layout-grid {
+                grid-template-columns: 1.6fr 1.2fr;
+                gap: 25px;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px 18px;
+            margin-bottom: 15px;
+            border-radius: 0 10px 10px 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            background: rgba(0, 210, 255, 0.05);
+            transform: translateX(4px);
+            border-left-color: var(--accent-cyan);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        .card-meta {
+            color: var(--accent-cyan);
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        /* Skills Progress Bars */
+        .skill-group {
+            margin-bottom: 15px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            margin-bottom: 5px;
+        }
+
+        .bar-bg {
+            background: rgba(255,255,255,0.1);
+            height: 6px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            width: 0%;
+            transition: width 1.2s ease-in-out;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(0, 114, 255, 0.15);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan));
+            color: #050811;
+            border: none;
+            padding: 12px 28px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,242,254,0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 22px rgba(0,242,254,0.5);
+        }
+
+        footer {
+            background: rgba(10, 15, 29, 0.9);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            margin-top: 20px;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1.5fr 1fr;
+                text-align: left;
+                align-items: center;
+            }
+        }
+
+        .footer-brand h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .footer-subtitle {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-details {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-details a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .footer-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-actions {
+                align-items: flex-end;
+            }
+        }
+
+        .copyright-text {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.78rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Hero / Main Header Block -->
+    <div class="hero-section">
+        <div class="profile-wrapper">
+            <div class="profile-frame">
+                <img src="photo 1.jpeg">
+            </div>
+        </div>
+        <div class="hero-welcome">
+            <h2>Driving Operational Efficiency & Digital Growth</h2>
+            <h1>Optimizing Fleet Logistics & Digital Footprints</h1>
+            <p>As desmartvoke, I bridge the gap between heavy-duty operations and the digital landscape. Balancing hands-on expertise in tire analytics and fleet management with custom software development and automated web tools.</p>
+        </div>
+    </div>
+
+    <!-- Collapsible Section 1: Carousel Slider -->
+    <div class="collapsible-section open">
+        <button class="section-header" onclick="toggleDropdown(this)">
+            <span>🖼️ Fleet & Web Application Showcase</span>
+            <span class="toggle-icon">&#9660;</span>
+        </button>
+        <div class="section-body">
+            <div class="marketing-slider">
+                <!-- Slide 1: Logistics Hub -->
+                <div class="slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop')">
+                    <div class="slide-overlay">
+                        <h3>Fleet & Operations Logistics Hub</h3>
+                        <p>Real-time coordination of dispatch schedules, cross-border transport logs, and heavy-duty logistics operations.</p>
+                    </div>
+                </div>
+                <!-- Slide 2: Tyre Management Application -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop')">
+                    <div class="slide-overlay">
+                        <h3>Tyre Management Web Application Design</h3>
+                        <p>Responsive front-end web interface for prime mover and multi-axle trailer safety inspections and automated data tracking.</p>
+                    </div>
+                </div>
+                <!-- Slide 3: Technical Inspection -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=1200&auto=format&fit=crop')">
+                    <div class="slide-overlay">
+                        <h3>On-Site Fleet Technical Diagnostics</h3>
+                        <p>Direct technical field evaluations, brake diagnostics, and fleet assembly safety protocol enforcement.</p>
+                    </div>
+                </div>
+                <!-- Slide 4: Wheel Alignment Analytics -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop')">
+                    <div class="slide-overlay">
+                        <h3>Wheel Alignment Dashboard UI Design</h3>
+                        <p>Clean dashboard design featuring real-time vehicle alignment logs, maintenance cost metrics, and service counts.</p>
+                    </div>
+                </div>
+                <!-- Slide 5: Tyre Record Entry UI -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200&auto=format&fit=crop')">
+                    <div class="slide-overlay">
+                        <h3>Tyre Movement Web Application Interface</h3>
+                        <p>User-focused front-end layout for recording mounting parameters, replacement cycles, and treadwear analytics.</p>
+                    </div>
+                </div>
+
+                <div class="slider-dots">
+                    <div class="dot active" onclick="jumpToSlide(0)"></div>
+                    <div class="dot" onclick="jumpToSlide(1)"></div>
+                    <div class="dot" onclick="jumpToSlide(2)"></div>
+                    <div class="dot" onclick="jumpToSlide(3)"></div>
+                    <div class="dot" onclick="jumpToSlide(4)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Section 2: Custom Software Projects -->
+    <div class="collapsible-section open">
+        <button class="section-header" onclick="toggleDropdown(this)">
+            <span>💻 Custom Software & Dashboard Projects</span>
+            <span class="toggle-icon">&#9660;</span>
+        </button>
+        <div class="section-body">
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="project a.png" alt="Tyre Movement Record Book Dashboard Application">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Tyre Movement Record Book</h3>
+                        <p>Web-based interface for logging vehicle tyre replacements, mounting specs, tread wear, and failure codes.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=600&auto=format&fit=crop" alt="Congo Tyre Inspection Web App">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Tyre Management App</h3>
+                        <p>Google Apps Script web application designed for prime mover and multi-axle trailer safety inspections.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="project d.jfif" alt="Wheel Alignment History Dashboard">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Wheel Alignment Analytics</h3>
+                        <p>Real-time analytics portal monitoring fleet maintenance records, service counts, and operational costs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Section 3: Field Operations -->
+    <div class="collapsible-section open">
+        <button class="section-header" onclick="toggleDropdown(this)">
+            <span>🛠️ Field Operations & Site Work</span>
+            <span class="toggle-icon">&#9660;</span>
+        </button>
+        <div class="section-body">
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="photo 1.jpeg" alt="Technical Vehicle Inspection On Site">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Technical Vehicle Inspection</h3>
+                        <p>Performing hands-on brake and wheel assembly diagnostics and safety checks on-site.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="photo 2.jpeg" alt="Fleet Operations & Admin Hub">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Fleet & Logistics Management</h3>
+                        <p>Coordinating dispatch records, transport logs, and fleet documentation at the Roy Transmotors office.</p>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-container">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=600&auto=format&fit=crop" alt="Operations Safety & Review Meeting">
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Safety & Strategy Briefings</h3>
+                        <p>Leading site safety compliance reviews and operational planning sessions with transport personnel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Section 4: Professional Profile & Experience -->
+    <div class="collapsible-section open">
+        <button class="section-header" onclick="toggleDropdown(this)">
+            <span>📋 Professional Profile, Experience & Skills</span>
+            <span class="toggle-icon">&#9660;</span>
+        </button>
+        <div class="section-body">
+            <div class="layout-grid">
+                <!-- Left Column -->
+                <div>
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 12px;">Corporate Profile & About</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                        Versatile and highly technical professional with a proven track record across dispatch optimizations, logistics management, and vehicle technical inspections. Leveraging strong operational capabilities along with tech implementation skills from <strong>Desmartvoke ICT Solutions</strong> to bring modern digital efficiencies into supply chain, transport networks, and workspace operations.
+                    </p>
+
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 12px;">Professional Experience</h3>
+                    <div class="card">
+                        <h3>Transport Support Assistant</h3>
+                        <div class="card-meta">Roy Transmotors (2025 – 2026)</div>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Managed asset assignments, technical breakdown coordination logs, tyre usage matrices, and general transport fleet support parameters.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Dispatch / Truck Loading Assistant</h3>
+                        <div class="card-meta">Chandaria Industries (2023 – 2025)</div>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">Directed warehouse logistics flow, checked space safety allocations, coordinated cargo securement, and executed precise loading schedules.</p>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 12px;">Core Technical & Field Skills</h3>
+                    
+                    <div class="skill-group">
+                        <div class="skill-info"><span>Dispatch & Logistics Operations</span><span>92%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 92%;"></div></div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-info"><span>ICT & Programming Architectures</span><span>88%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 88%;"></div></div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-info"><span>Vehicle Fleet Inspection</span><span>85%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-info"><span>Tyre & Maintenance Management</span><span>80%</span></div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
+                    </div>
+
+                    <h3 style="color: var(--accent-cyan); margin-top: 25px; margin-bottom: 12px;">Accredited Certificates</h3>
+                    <div class="tag-container">
+                        <span class="tag">🖥️ Computer Programming – IYF Mahanam College</span>
+                        <span class="tag">💻 Basic Computer – Bright Star Computer College</span>
+                        <span class="tag">🚗 Professional Driving – Fesko School</span>
+                        <span class="tag">🥋 Defensive Tactical Training – Kenpo Karate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <h2>Kevin Ndirangu Njoroge</h2>
+            <div class="footer-subtitle">Founder, Desmartvoke ICT Solutions & Logistics Specialist</div>
+            <div class="footer-details">
+                <span>📍 Location: Nairobi, Kenya</span>
+                <span>📧 Email: <a href="mailto:luckybea700@gmail.com">luckybea700@gmail.com</a></span>
+                <span>📞 Helplines: <a href="tel:0796370601">0796370601</a> / <a href="tel:0792424247">0792424247</a></span>
+            </div>
+        </div>
+        <div class="footer-actions">
+            <button class="action-btn" onclick="window.open('https://wa.me/254792424227?text=Hello%20Kevin,%20I%20would%20like%20to%20partner%20with%20you.', '_blank')">Partner With Me</button>
+            <div class="copyright-text">&copy; 2026 All Rights Reserved.</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Toggle Dropdown System
+    function toggleDropdown(buttonElement) {
+        const parentSection = buttonElement.parentElement;
+        parentSection.classList.toggle('open');
+    }
+
+    // Carousel Slider Logic
+    let activeIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+        slides.forEach((slide, idx) => {
+            if(idx === activeIndex) {
+                slide.classList.add('active');
+                dots[idx].classList.add('active');
+            } else {
+                slide.classList.remove('active');
+                dots[idx].classList.remove('active');
+            }
+        });
+    }
+
+    function jumpToSlide(index) {
+        activeIndex = index;
+        updateSlider();
+    }
+
+    setInterval(() => {
+        if(slides.length > 0) {
+            activeIndex = (activeIndex + 1) % slides.length;
+            updateSlider();
+        }
+    }, 5500);
+</script>
+
+</body>
+</html>
